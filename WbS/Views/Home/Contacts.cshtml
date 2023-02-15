@@ -1,0 +1,23 @@
+﻿@model WbS.Models.Contacts
+
+<h2>Contacts</h2>
+<form method="post" asp-action="contacts" asp-controller="home">
+    <p>
+        <label asp-for="FirstName"></label><br />
+        <input type="text" asp-for="FirstName" />
+        <span asp-validation-for="FirstName"></span>
+    </p>
+    <p>
+        <label asp-for="LastName"></label><br />
+        <input type="text" asp-for="LastName" />
+        <span asp-validation-for="LastName"></span>
+    </p>
+    <p>
+        <label asp-for="Email"></label><br />
+        <input type="text" asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </p>
+    <p>
+        <input type="submit" value="Send" />
+    </p>
+</form>

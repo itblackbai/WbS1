@@ -1,0 +1,13 @@
+﻿@model WbS.Models.Accounts
+
+<h2>Accounts</h2>
+<form asp-action="accounts" asp-controller="home">
+    <p>
+        <label asp-for="AccoutName">AccoutName</label><br />
+        <input type="text" asp-for="AccoutName" />
+    </p>
+
+    <p>
+        <input type="submit" value="Send" />
+    </p>
+</form>

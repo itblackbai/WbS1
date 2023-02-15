@@ -1,0 +1,13 @@
+﻿@model WbS.Models.Incidents
+
+<h2>Incidents</h2>
+<form asp-action="incidents" asp-controller="home">
+    <p>
+        <label asp-for="Description">Incidents description</label><br />
+        <input type="text" asp-for="Description" />
+    </p>
+    
+    <p>
+        <input type="submit" value="Send" />
+    </p>
+</form>
