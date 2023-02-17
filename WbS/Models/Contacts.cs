@@ -1,15 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WbS.Models
 {
-    //Index("Email", IsUnique = true )]
+    [Index("Email", IsUnique = true )]
     public class Contacts
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public string Id { get; set; }
         [Required(ErrorMessage = "Please enter FirstName")]
         [Display(Name = "FirstName")]
         public string FirstName { get; set; }
@@ -20,10 +19,9 @@ namespace WbS.Models
        
         [Display(Name = "Email")]
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}")]
-        [Remote(action: "CheckEmail", controller: "Home", ErrorMessage = "Email уже используется")]
+        [Remote(action: "CheckEmail", controller: "Home", ErrorMessage = "Email is valid")]
         public string? Email { get; set; }
         
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public int? AccountId { get; set; }
         public Accounts? accounts { get; set; }
     }
