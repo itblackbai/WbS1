@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -6,15 +6,17 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WbS.Models
 {
-   // [Index("AccoutName", IsUnique = true)]
+    [Index("AccoutName", IsUnique = true)]
     public class Accounts
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
+       
+        public string Id { get; set; }
+        [Required(ErrorMessage = "Please enter accout name")]
+        [Display(Name = "AccoutName")]
+        [Remote(action: "CheckAccount", controller: "Home", ErrorMessage = "Account is valid")]
         public string? AccoutName { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        
         public int? IncidentId { get; set; }
         public Incidents? incidents { get; set; }
 
