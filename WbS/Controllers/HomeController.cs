@@ -1,4 +1,4 @@
-﻿
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
@@ -35,17 +35,37 @@ namespace WbS.Controllers
 
 
         [AcceptVerbs("Get", "Post")]
-        public IActionResult CheckEmail(string AccountName,Contacts contacts)
+        public IActionResult CheckEmail(string email)
         {
+            foreach (var item in db.contacts)
+            {
+               if(email == item.Email)
+                    return Json(false);
+            }
+            return Json(true);
+        }
 
-            if (AccountName == contacts.Email)
-                return Json(false);
+        [AcceptVerbs("Get", "Post")]
+        public IActionResult CheckAccount(string account)
+        {
+            foreach (var item in db.accounts)
+            {
+                if (account == item.AccoutName)
+                    return Json(false);
+            }
             return Json(true);
         }
 
         [HttpPost]
         public async Task<IActionResult> Contacts(Contacts contacts)
         {
+
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Error404");
+            }
+           
+            contacts.Id = Guid.NewGuid().ToString();
             db.contacts.Add(contacts);
             await db.SaveChangesAsync();
             return RedirectToAction("Accounts");
@@ -56,15 +76,21 @@ namespace WbS.Controllers
         [HttpPost]
         public async Task<IActionResult> Accounts(Accounts accounts)
         {
+            if (ModelState.IsValid)
+            {
+                accounts.Id = Guid.NewGuid().ToString();
+                db.accounts.Add(accounts);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Incidents");
+            }
+            return RedirectToAction("Error404");
 
-            db.accounts.Add(accounts);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Incidents"); 
-  
+
         }
         [HttpPost]
         public async Task<IActionResult> Incidents(Incidents incidents)
         {
+            incidents.Id = Guid.NewGuid().ToString();
             db.incidents.Add(incidents);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
